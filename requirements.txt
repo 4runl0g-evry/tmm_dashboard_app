@@ -1,0 +1,6 @@
+streamlit
+pandas
+altair<5
+openpyxl
+plotly
+plotly-express

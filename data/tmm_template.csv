@@ -1,0 +1,17 @@
+,CHECK,MAJOR,AREAS
+0,FALSE,REQUIREMENTS,Impact Analysis of enhancment/defect/CR/feature
+1,FALSE,REQUIREMENTS,Grooming/Working Sessions with BA
+2,FALSE,REQUIREMENTS,Querylog/Clarification log Updation
+3,FALSE,REQUIREMENTS,Define Testing Entry/ExitCriteria
+4,FALSE,REQUIREMENTS,Freeze Requirement and Acceptance Criteria
+5,FALSE,PLANNING & ESTIMATIONS,Release/Sprint level plan and strategy document
+6,FALSE,PLANNING & ESTIMATIONS,Capacity Planning
+7,FALSE,PLANNING & ESTIMATIONS,Story point estimation
+8,FALSE,PLANNING & ESTIMATIONS,Analysis estimation
+9,FALSE,PLANNING & ESTIMATIONS,Test data preparation estimation
+10,FALSE,PLANNING & ESTIMATIONS,Test Case preparation estimation
+11,FALSE,PLANNING & ESTIMATIONS,Test Case Review estimation
+12,FALSE,PLANNING & ESTIMATIONS,Test Executions/Defect management estimation
+13,FALSE,PLANNING & ESTIMATIONS,Test Summary preapration estimation
+14,FALSE,PLANNING & ESTIMATIONS,Estimations should also consider Rework effort (due to gaps/CR/missing coverage)
+15,FALSE,PLANNING & ESTIMATIONS,Estimation basis sheet should be maintained on a quarterly basis to check if estimation technique still holds good or need reformation
