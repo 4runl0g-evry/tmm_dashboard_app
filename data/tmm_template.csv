@@ -1,17 +1,31 @@
 ,CHECK,MAJOR,AREAS
-0,FALSE,REQUIREMENTS,Impact Analysis of enhancment/defect/CR/feature
-1,FALSE,REQUIREMENTS,Grooming/Working Sessions with BA
-2,FALSE,REQUIREMENTS,Querylog/Clarification log Updation
-3,FALSE,REQUIREMENTS,Define Testing Entry/ExitCriteria
-4,FALSE,REQUIREMENTS,Freeze Requirement and Acceptance Criteria
-5,FALSE,PLANNING & ESTIMATIONS,Release/Sprint level plan and strategy document
-6,FALSE,PLANNING & ESTIMATIONS,Capacity Planning
-7,FALSE,PLANNING & ESTIMATIONS,Story point estimation
-8,FALSE,PLANNING & ESTIMATIONS,Analysis estimation
-9,FALSE,PLANNING & ESTIMATIONS,Test data preparation estimation
-10,FALSE,PLANNING & ESTIMATIONS,Test Case preparation estimation
-11,FALSE,PLANNING & ESTIMATIONS,Test Case Review estimation
-12,FALSE,PLANNING & ESTIMATIONS,Test Executions/Defect management estimation
-13,FALSE,PLANNING & ESTIMATIONS,Test Summary preapration estimation
-14,FALSE,PLANNING & ESTIMATIONS,Estimations should also consider Rework effort (due to gaps/CR/missing coverage)
-15,FALSE,PLANNING & ESTIMATIONS,Estimation basis sheet should be maintained on a quarterly basis to check if estimation technique still holds good or need reformation
+0,FALSE,Requirement Analysis,Impact Analysis of enhancment/defect/CR/feature
+1,FALSE,Requirement Analysis,Grooming/Working Sessions with BA
+2,FALSE,Requirement Analysis,Querylog/Clarification log Updation
+3,FALSE,Requirement Analysis,Define Testing Entry/ExitCriteria
+4,FALSE,Requirement Analysis,Freeze Requirement and Acceptance Criteria
+5,FALSE,Planning and Estimations,Release/Sprint level plan and strategy document
+6,FALSE,Planning and Estimations,Capacity Planning
+7,FALSE,Planning and Estimations,Story point estimation
+8,FALSE,Planning and Estimations,Analysis estimation
+9,FALSE,Planning and Estimations,Test data preparation estimation
+10,FALSE,Planning and Estimations,Test Case preparation estimation
+11,FALSE,Planning and Estimations,Test Case Review estimation
+12,FALSE,Planning and Estimations,Test Executions/Defect management estimation
+13,FALSE,Planning and Estimations,Test Summary preapration estimation
+14,FALSE,Planning and Estimations,Estimations should also consider Rework effort (due to gaps/CR/missing coverage)
+15,FALSE,Planning and Estimations,Estimation basis sheet should be maintained on a quarterly basis to check if estimation technique still holds good or need reformation
+16,FALSE,Test Case Design & Review,TC Should be mapped against the US/Story points
+17,FALSE,Test Case Design & Review,"TC should cover prerequisites, test data, SQL queries and environmental details"
+18,FALSE,Test Case Design & Review,TC Suite Maintenance and Versioning
+19,FALSE,Test Case Design & Review,Formal Test case review to be followed either by BA or peer review
+20,FALSE,Test Case Design & Review,"Review comments to be logged, rework effort to be tracked formally"
+21,FALSE,Release Summary/Sign Off,All testing Metrics should be provided
+22,FALSE,Release Summary/Sign Off,Any knowns issues triaged to next release/product backlog should be highlighted.
+23,FALSE,Release Summary/Sign Off,Artifacts/Documentation if any should be completed
+24,FALSE,Production Deployment,Any knowns issues triaged to product backlog/next release should be highlighted.
+25,FALSE,Production Deployment,Documentation/Artifacts if any should be completed
+26,FALSE,Post Release Activities,Regression suite needs to be evolved from release to release. Suite needs to be updated with latest enhancements/features/requirement related test cases.
+27,FALSE,Post Release Activities,Cross platform functional KT sessions to be conducted amongst the team so that entire team is on same page
+28,FALSE,UAT Testing,Checklist of TC executed as part of this activity can be shared with client/BA/UAT users for review
+29,FALSE,UAT Testing,Sign off the summary email

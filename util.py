@@ -44,6 +44,7 @@ def display_unselected_values_v2(dict_values):
 
 def display_checkbox_get_updated_list(checkbox_dicts,suffix,uploaded_file):
     main_checkboxes = [st.checkbox(f"Check/Uncheck All",key={suffix})]
+    # print(f"***********{suffix}*************")
     if uploaded_file is None: # if template.csv file loaded
         for i, (main_checkbox, checkbox_dict) in enumerate(zip(main_checkboxes, checkbox_dicts)):
                 if main_checkbox:
@@ -217,10 +218,16 @@ def format_preview_df(df):
     formatted_df = df.map(format_boolean_as_checkbox)
     st.write(formatted_df)
 
-def get_generic_values(list):
-    req_areas_list_values = [{ i[2]:i[0] for i in list if i[1] == major_areas[0]}]
-    plan_areas_list_values = [{ i[2]:i[0] for i in list if i[1] == major_areas[1]}]
-    return req_areas_list_values, plan_areas_list_values
+def get_generic_values(list, major_areas_array):
+    sub_area_list_01 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[0]}]
+    sub_area_list_02 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[1]}]
+    sub_area_list_03 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[2]}]
+    sub_area_list_04 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[3]}]
+    sub_area_list_05 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[4]}]
+    sub_area_list_06 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[5]}]
+    sub_area_list_07 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[6]}]
+    print(sub_area_list_01)
+    return sub_area_list_01, sub_area_list_02, sub_area_list_03, sub_area_list_04, sub_area_list_05, sub_area_list_06, sub_area_list_07
 
 def get_updated_uncheckbox_df(df):
     df = df[df['CHECK'] == False]
