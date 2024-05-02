@@ -13,7 +13,7 @@ def show_major_expander(list, major_value, uploaded_file):
             updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
             df_percent = calculate_percentage(updated_df)
         with col2:
-            st.write(generate_color_bar(df_percent, "100", "20", "10"), unsafe_allow_html=True)
+            st.write(generate_color_bar(df_percent, "small"), unsafe_allow_html=True)
         return updated_df, updated_unchecked_df, df_percent
 
 def main():
@@ -27,51 +27,43 @@ def main():
         
     tab_titles = [ "Dashboard", "Maturity Assessment",  "Pending Areas / Gaps", "Data preview"]
     tabs = st.tabs(tab_titles)
-    load_csv_df = load_data_csv_v2(uploaded_file)
-    get_data_list = get_all_column_data(load_csv_df)
-    # print(get_data_list)
-    major_areas_array = load_csv_df['MAJOR'].unique()
-    sub_area_list_01, sub_area_list_02, sub_area_list_03, sub_area_list_04, sub_area_list_05, sub_area_list_06, sub_area_list_07 = get_generic_values(get_data_list, major_areas_array)
+    qa_process_data_df, automation_process_data_df = load_data_xlsx(uploaded_file)
+    qa_list, auto_list = get_all_column_data(qa_process_data_df,automation_process_data_df)
+    qa_major_areas_array, auto_major_areas_array = get_major_areas_by_process_type(qa_process_data_df, automation_process_data_df)
+    qa_sub_area_list_01, qa_sub_area_list_02, qa_sub_area_list_03, qa_sub_area_list_04, qa_sub_area_list_05, qa_sub_area_list_06, qa_sub_area_list_07 = get_areas_list(qa_list, qa_major_areas_array)
+    auto_sub_area_list_01, auto_sub_area_list_02, auto_sub_area_list_03, auto_sub_area_list_04, auto_sub_area_list_05, auto_sub_area_list_06, auto_sub_area_list_07 = get_areas_list(auto_list, auto_major_areas_array)
 
     with tabs[1]:
-        header_style("QA PROCESS",20,"left")
-        updated_df1, updated_unchecked_df1, df1_percent = show_major_expander(sub_area_list_01, major_areas_array[0], uploaded_file)
-        updated_df2, updated_unchecked_df2, df2_percent = show_major_expander(sub_area_list_02, major_areas_array[1], uploaded_file)
-        updated_df3, updated_unchecked_df3, df3_percent = show_major_expander(sub_area_list_03, major_areas_array[2], uploaded_file)
-        updated_df4, updated_unchecked_df4, df4_percent = show_major_expander(sub_area_list_04, major_areas_array[3], uploaded_file)
-        updated_df5, updated_unchecked_df5, df5_percent = show_major_expander(sub_area_list_05, major_areas_array[4], uploaded_file)
-        updated_df6, updated_unchecked_df6, df6_percent = show_major_expander(sub_area_list_06, major_areas_array[5], uploaded_file)
-        updated_df7, updated_unchecked_df7, df7_percent = show_major_expander(sub_area_list_07, major_areas_array[6], uploaded_file)
-    
+        header_style(process_type[0],18,"center")
+        updated_df1, updated_unchecked_df1, df1_percent = show_major_expander(qa_sub_area_list_01, qa_major_areas_array[0], uploaded_file)
+        updated_df2, updated_unchecked_df2, df2_percent = show_major_expander(qa_sub_area_list_02, qa_major_areas_array[1], uploaded_file)
+        updated_df3, updated_unchecked_df3, df3_percent = show_major_expander(qa_sub_area_list_03, qa_major_areas_array[2], uploaded_file)
+        updated_df4, updated_unchecked_df4, df4_percent = show_major_expander(qa_sub_area_list_04, qa_major_areas_array[3], uploaded_file)
+        updated_df5, updated_unchecked_df5, df5_percent = show_major_expander(qa_sub_area_list_05, qa_major_areas_array[4], uploaded_file)
+        updated_df6, updated_unchecked_df6, df6_percent = show_major_expander(qa_sub_area_list_06, qa_major_areas_array[5], uploaded_file)
+        updated_df7, updated_unchecked_df7, df7_percent = show_major_expander(qa_sub_area_list_07, qa_major_areas_array[6], uploaded_file)
+
+        header_style(process_type[1],18,"center")
+        auto_updated_df1, auto_updated_unchecked_df1, auto_df1_percent = show_major_expander(auto_sub_area_list_01, auto_major_areas_array[0], uploaded_file)
+        auto_updated_df2, auto_updated_unchecked_df2, auto_df2_percent = show_major_expander(auto_sub_area_list_02, auto_major_areas_array[1], uploaded_file)
+        auto_updated_df3, auto_updated_unchecked_df3, auto_df3_percent = show_major_expander(auto_sub_area_list_03, auto_major_areas_array[2], uploaded_file)
+        auto_updated_df4, auto_updated_unchecked_df4, auto_df4_percent = show_major_expander(auto_sub_area_list_04, auto_major_areas_array[3], uploaded_file)
+        auto_updated_df5, auto_updated_unchecked_df5, auto_df5_percent = show_major_expander(auto_sub_area_list_05, auto_major_areas_array[4], uploaded_file)
+        auto_updated_df6, auto_updated_unchecked_df6, auto_df6_percent = show_major_expander(auto_sub_area_list_06, auto_major_areas_array[5], uploaded_file)
+        auto_updated_df7, auto_updated_unchecked_df7, auto_df7_percent = show_major_expander(auto_sub_area_list_07, auto_major_areas_array[6], uploaded_file)
+        
     with tabs[0]:
-        options = st.selectbox('Select Major Areas: ',
-                        ['QA PROCESS', 'AUTOMATION TESTING'])
-        if options == "QA PROCESS":
-            color, caption, rating = get_color_and_caption((df1_percent+df2_percent)/2)
+        options = st.selectbox('Select Major Areas: ',process_type)
+        if options == process_type[0]:
+            color, caption, rating = get_color_and_caption((df1_percent+df2_percent+df3_percent+df4_percent+df5_percent+df6_percent+df7_percent)/2)
             plot_gauge(rating,  color, caption, options, 5)
-            col1, col2 = st.columns(2)
-            with col1:
-                st.write(major_areas_array[0])
-                st.write(major_areas_array[1])
-                st.write(major_areas_array[2])
-                st.write(major_areas_array[3])
-                st.write(major_areas_array[4])
-                st.write(major_areas_array[5])
-                st.write(major_areas_array[6])
-            with col2:
-                st.write(generate_color_bar(df1_percent, "300", "30", "15"), unsafe_allow_html=True)
-                st.write("  \n")
-                st.write(generate_color_bar(df2_percent, "300", "30", "15"), unsafe_allow_html=True)
-                st.write("  \n")
-                st.write(generate_color_bar(df3_percent, "300", "30", "15"), unsafe_allow_html=True)
-                st.write("  \n")
-                st.write(generate_color_bar(df4_percent, "300", "30", "15"), unsafe_allow_html=True)
-                st.write("  \n")
-                st.write(generate_color_bar(df5_percent, "300", "30", "15"), unsafe_allow_html=True)
-                st.write("  \n")
-                st.write(generate_color_bar(df6_percent, "300", "30", "15"), unsafe_allow_html=True)
-                st.write("  \n")
-                st.write(generate_color_bar(df7_percent, "300", "30", "15"), unsafe_allow_html=True)
+            display_area_table(qa_major_areas_array,df1_percent, df2_percent,
+                               df3_percent, df4_percent, df5_percent, df6_percent, df7_percent)
+        elif options == process_type[1]:
+            color, caption, rating = get_color_and_caption((df1_percent+df2_percent+df3_percent+df4_percent+df5_percent+df6_percent+df7_percent)/2)
+            plot_gauge(rating,  color, caption, options, 5)
+            display_area_table(auto_major_areas_array,auto_df1_percent, auto_df2_percent, auto_df3_percent, 
+                               auto_df4_percent, auto_df5_percent, auto_df6_percent, auto_df7_percent)
         else:
             plot_gauge(0, colour_code_range(0), "", options, 5)
 
@@ -86,10 +78,11 @@ def main():
         if option == 'Updated':
             format_preview_df(merged_updated_df)
         elif option == 'Template / Uploaded':
-            format_preview_df(load_csv_df)
+            format_preview_df(qa_process_data_df)
+            # format_preview_df(automation_process_data_df)
 
     with st.sidebar:
-        download(merged_updated_df)
+        # download(merged_updated_df)
         maturity_level_status()
                 
 

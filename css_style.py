@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from util import *
 
 def header_style(header_text, font_size, text_align):
 # Display the header with custom CSS
@@ -45,6 +46,11 @@ def maturity_level_status():
         display: none;
     }
     table.dataframe th {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    table.dataframe td {
         text-align: center;
     }
     </style>

@@ -3,9 +3,23 @@ import pandas as pd
 import os
 import base64
 import plotly.graph_objects as go
+from css_style import *
 
-major_areas = ["REQUIREMENTS", "PLANNING & ESTIMATIONS"]
+# major_areas = ["REQUIREMENTS", "PLANNING & ESTIMATIONS"]
+process_type = ["QA PROCESS", "AUTOMATION PROCESS"]
 
+def show_major_expander(list, major_value, uploaded_file):
+    # print(f"***********{major_value}*************")
+    with st.expander(label=major_value):
+        col1, col2 = st.columns([8,2])
+        with col1:
+            updated_df = display_checkbox_get_updated_list(list, major_value, uploaded_file)
+            updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
+            df_percent = calculate_percentage(updated_df)
+        with col2:
+            st.write(generate_color_bar(df_percent, "small"), unsafe_allow_html=True)
+        return updated_df, updated_unchecked_df, df_percent
+    
 # Method to calculate percentage of selected checkboxes
 def calculate_percentage(df):
     checkbox_values = df['CHECK'].tolist()
@@ -43,7 +57,7 @@ def display_unselected_values_v2(dict_values):
     return df
 
 def display_checkbox_get_updated_list(checkbox_dicts,suffix,uploaded_file):
-    main_checkboxes = [st.checkbox(f"Check/Uncheck All",key={suffix})]
+    main_checkboxes = [st.checkbox(label="CheckAll",key={suffix},label_visibility="hidden")]
     # print(f"***********{suffix}*************")
     if uploaded_file is None: # if template.csv file loaded
         for i, (main_checkbox, checkbox_dict) in enumerate(zip(main_checkboxes, checkbox_dicts)):
@@ -77,6 +91,134 @@ def display_checkbox_get_updated_list(checkbox_dicts,suffix,uploaded_file):
 #     {i: False for i in requirements_list},
 #     {i: False for i in planning_and_estimations_list}
 # ]
+
+def upload():
+    st.header("Upload a File")
+    uploaded_file = st.file_uploader("Choose a CSV file", type=['csv'])
+    return uploaded_file
+
+
+def download_link(df):
+    # st.header("Download file")
+    csv = df.to_csv(index=False).encode('utf-8')
+    b64 = base64.b64encode(csv).decode() 
+    href = f'<a href="data:file/csv;base64,{b64}" download="downloaded_data.csv">Download CSV</a>'
+    st.markdown(href, unsafe_allow_html=True)
+
+def download(df):
+    st.download_button(":white[Download CSV ]", df.to_csv(), mime='text/csv', file_name="downloaded_data.csv")
+
+def upload():
+    # st.header("Upload a File")
+    uploaded_file = st.file_uploader("Choose a CSV file", type=['xlsx'])
+    return uploaded_file
+
+def load_data():
+    df = pd.read_csv("data/tmm_template.csv")
+    print(df)
+    return df
+
+# load csv data and return dataframe of all columns
+def load_data_csv(uploaded_file):
+    if uploaded_file is None:
+        # Load data from local data.csv file
+        if os.path.exists("data/tmm_template.csv"):
+            df = pd.read_csv("data/tmm_template.csv")
+            # return df
+        else:
+            st.error("No file uploaded and local data.csv file not found.")
+            return None
+    else:
+        # Load data from uploaded file
+        df = pd.read_csv(uploaded_file)
+    df = df.drop(columns=df.columns[df.columns.str.contains('Unnamed', case=False)])
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+def read_xlsx_by_sheetname(uploaded_file, sheet_name):
+    df = pd.read_excel(
+            io=uploaded_file,
+            engine='openpyxl',
+            sheet_name=sheet_name
+            )
+    return df
+# load xlsx data and return dataframe of all columns
+def load_data_xlsx(uploaded_file):
+    if uploaded_file is None:
+        # Load data from local data/tmm_template.xlsx file
+        if os.path.exists("data/tmm_template.xlsx"):
+            qa_df = read_xlsx_by_sheetname("data/tmm_template.xlsx",process_type[0])
+            auto_df = read_xlsx_by_sheetname("data/tmm_template.xlsx",process_type[1])
+            # return df
+        else:
+            st.error("No file uploaded and local tmm_template.xlsx file not found.")
+            return None
+    else:
+        # Load data from uploaded file
+        qa_df = read_xlsx_by_sheetname(uploaded_file,process_type[0])
+        qa_df = read_xlsx_by_sheetname(uploaded_file,process_type[1])
+    qa_df = qa_df.drop(columns=qa_df.columns[qa_df.columns.str.contains('Unnamed', case=False)])
+    qa_df.reset_index(drop=True, inplace=True)
+
+    auto_df = auto_df.drop(columns=auto_df.columns[auto_df.columns.str.contains('Unnamed', case=False)])
+    auto_df.reset_index(drop=True, inplace=True)
+
+    return qa_df, auto_df
+
+# return dataframe in a list
+def get_all_column_data(qa_df,auto_df):
+    if qa_df.empty or auto_df.empty:
+        st.warning(f"No data found for {qa_df} or {auto_df}.")
+    else:
+        qa_all_column_values = qa_df[['CHECK','MAJOR','AREAS']].values.tolist()
+        auto_all_column_values = auto_df[['CHECK','MAJOR','AREAS']].values.tolist()
+    return qa_all_column_values, auto_all_column_values
+
+def get_major_areas_by_process_type(qa_df, auto_df):
+    qa_df = qa_df['MAJOR'].unique()
+    auto_df = auto_df['MAJOR'].unique()
+    return qa_df, auto_df
+
+# Format TRUE / FALSE values with symbols on df
+def format_preview_df(df):
+    # df = pd.DataFrame(df,columns=['CHECK', 'MAJOR', 'AREAS'])
+    def format_boolean_as_checkbox(value):
+        if isinstance(value, bool):
+            return "✅" if value else "❌"
+        return value
+    formatted_df = df.map(format_boolean_as_checkbox)
+    st.write(formatted_df)
+
+def get_areas_list(list, major_areas_array):
+    sub_area_list_01 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[0]}]
+    sub_area_list_02 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[1]}]
+    sub_area_list_03 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[2]}]
+    sub_area_list_04 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[3]}]
+    sub_area_list_05 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[4]}]
+    sub_area_list_06 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[5]}]
+    sub_area_list_07 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[6]}]
+    return sub_area_list_01, sub_area_list_02, sub_area_list_03, sub_area_list_04, sub_area_list_05, sub_area_list_06, sub_area_list_07
+
+def get_updated_uncheckbox_df(df):
+    df = df[df['CHECK'] == False]
+    return df
+
+def generate_color_bar(percentage, bar_size):
+    # Determine color based on percentage
+    bar_color = colour_code_range(percentage)
+    if bar_size == "large":
+        color_bar = f"""
+        <div style="position: relative; width: 300px; height: 30px; background-color: {bar_color}; border-radius: 15px;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Arial, sans-serif; font-size: 12px; color: black;">{percentage}%</div>
+        </div>
+        """
+    elif bar_size =="small":
+        color_bar = f"""
+        <div style="position: relative; width: 100px; height: 20px; background-color: {bar_color}; border-radius: 10px;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Arial, sans-serif; font-size: 12px; color: black;">{percentage}%</div>
+        </div>
+        """
+    return color_bar
 
 def plot_gauge(
             indicator_number, indicator_color, indicator_suffix, indicator_title, max_bound
@@ -132,104 +274,45 @@ def get_color_and_caption(percentage):
     else: color = "#00BD32"; caption = "LEVEL 5"; rating=5
     return color, caption, rating
 
-
-def generate_color_bar(percentage, width, height, radius):
-    # Determine color based on percentage
-    bar_color = colour_code_range(percentage)
-    color_bar = f"""
-    <div style="position: relative; width: {width}px; height: {height}px; background-color: {bar_color}; border-radius: {radius}px;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Arial, sans-serif; font-size: 12px; color: black;">{percentage}%</div>
-    </div>
-    """
-    return color_bar
-
-def upload():
-    st.header("Upload a File")
-    uploaded_file = st.file_uploader("Choose a CSV file", type=['csv'])
-    return uploaded_file
-
-
-def download_link(df):
-    # st.header("Download file")
-    csv = df.to_csv(index=False).encode('utf-8')
-    b64 = base64.b64encode(csv).decode() 
-    href = f'<a href="data:file/csv;base64,{b64}" download="downloaded_data.csv">Download CSV</a>'
-    st.markdown(href, unsafe_allow_html=True)
-
-def download(df):
-    st.download_button(":white[Download CSV ]", df.to_csv(), mime='text/csv', file_name="downloaded_data.csv")
-
-def upload():
-    # st.header("Upload a File")
-    uploaded_file = st.file_uploader("Choose a CSV file", type=['csv'])
-    return uploaded_file
-
-def load_data():
-    df = pd.read_csv("data/tmm_template.csv")
-    print(df)
-    return df
-
-def load_data_csv(uploaded_file):
-    if uploaded_file is None:
-        # Load data from local data.csv file
-        if os.path.exists("data/tmm_template.csv"):
-            df = pd.read_csv("data/tmm_template.csv")
-            return df
-        else:
-            st.error("No file uploaded and local data.csv file not found.")
-            return None
-    else:
-        # Load data from uploaded file
-        df = pd.read_csv(uploaded_file)
-    return df
-
-# load csv data and return dataframe of all columns
-def load_data_csv_v2(uploaded_file):
-    if uploaded_file is None:
-        # Load data from local data.csv file
-        if os.path.exists("data/tmm_template.csv"):
-            df = pd.read_csv("data/tmm_template.csv")
-            # return df
-        else:
-            st.error("No file uploaded and local data.csv file not found.")
-            return None
-    else:
-        # Load data from uploaded file
-        df = pd.read_csv(uploaded_file)
-    df = df.drop(columns=df.columns[df.columns.str.contains('Unnamed', case=False)])
-    df.reset_index(drop=True, inplace=True)
-    return df
-
-# return dataframe in a list
-def get_all_column_data(df):
-    if df.empty:
-        st.warning(f"No data found for {df}.")
-    else:
-        all_column_values = df[['CHECK','MAJOR','AREAS']].values.tolist()
-    return all_column_values
-
-# Format TRUE / FALSE values with symbols on df
-def format_preview_df(df):
-    # df = pd.DataFrame(df,columns=['CHECK', 'MAJOR', 'AREAS'])
-    def format_boolean_as_checkbox(value):
-        if isinstance(value, bool):
-            return "✅" if value else "❌"
-        return value
-    formatted_df = df.map(format_boolean_as_checkbox)
-    st.write(formatted_df)
-
-def get_generic_values(list, major_areas_array):
-    sub_area_list_01 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[0]}]
-    sub_area_list_02 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[1]}]
-    sub_area_list_03 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[2]}]
-    sub_area_list_04 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[3]}]
-    sub_area_list_05 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[4]}]
-    sub_area_list_06 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[5]}]
-    sub_area_list_07 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[6]}]
-    print(sub_area_list_01)
-    return sub_area_list_01, sub_area_list_02, sub_area_list_03, sub_area_list_04, sub_area_list_05, sub_area_list_06, sub_area_list_07
-
-def get_updated_uncheckbox_df(df):
-    df = df[df['CHECK'] == False]
-    return df
-
+def display_area_table(qa_major_areas_array, p1, p2, p3, p4, p5, p6, p7):
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("<p style='text-align: center; font-size: 20px; font-weight: bold;'><u>AREAS</u></p>", unsafe_allow_html=True)
+    with col2:
+        st.markdown("<p style='text-align: center; font-size: 20px; font-weight: bold;'><u>CURRENT STATUS</u></p>", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[0])
+    with col2:
+        st.write(generate_color_bar(p1, "large"), unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[1])
+    with col2:
+        st.write(generate_color_bar(p2, "large"), unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[2])
+    with col2:
+        st.write(generate_color_bar(p3, "large"), unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[3])
+    with col2:
+        st.write(generate_color_bar(p4, "large"), unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[4])
+    with col2:
+        st.write(generate_color_bar(p5, "large"), unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[5])
+    with col2:
+        st.write(generate_color_bar(p6, "large"), unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(qa_major_areas_array[6])
+    with col2:
+        st.write(generate_color_bar(p7, "large"), unsafe_allow_html=True)
