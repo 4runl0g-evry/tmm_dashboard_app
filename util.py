@@ -194,8 +194,8 @@ def format_preview_df(df):
             return "✅" if value else "❌"
         return value
     formatted_df = df.map(format_boolean_as_checkbox)
-    # st.write(formatted_df)
-    st.dataframe(formatted_df, width=700, height=300)
+    st.write(formatted_df)
+    # st.dataframe(formatted_df, width=700, height=300)
 
 def get_areas_list(list, major_areas_array):
     sub_area_list_01 = [{ i[2]:i[0] for i in list if i[1] == major_areas_array[0]}]
