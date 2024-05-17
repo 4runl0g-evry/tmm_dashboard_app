@@ -68,11 +68,18 @@ def display_checkbox_get_updated_list(checkbox_dicts,suffix,uploaded_file):
                     for key in checkbox_dict:
                         checkbox_dict[key] = False
     elif uploaded_file is not None: # using upload csv file
-        content = uploaded_file.getvalue().decode("utf-8")
-        # print(len(content))
-        if len(content) > 0:
-            print(f"uploaded_file is NOT NONE len(content) > 0 main_checkboxes ====> {main_checkboxes}")
-
+        # content = uploaded_file.getvalue().decode("utf-8")
+        # # print(len(content))
+        # if len(content) > 0:
+        #     print(f"uploaded_file is NOT NONE len(content) > 0 main_checkboxes ====> {main_checkboxes}")
+        # st.success("File uploaded successfully!")
+        # try:
+            # Read the Excel file
+        df = pd.read_excel(uploaded_file, engine='openpyxl')
+            # Display the dataframe
+            # st.write(df)
+        # except Exception as e:
+            # st.error(f"Error: {e}")
     # Display individual checkboxes based on the states
     for checkbox_dict in checkbox_dicts:
         for key in checkbox_dict:
@@ -110,7 +117,7 @@ def download(df):
 
 def upload():
     # st.header("Upload a File")
-    uploaded_file = st.file_uploader("Choose a CSV file", type=['xlsx'])
+    uploaded_file = st.file_uploader("Choose a XLSX file", type=['xlsx'])
     return uploaded_file
 
 def load_data():
@@ -156,7 +163,7 @@ def load_data_xlsx(uploaded_file):
     else:
         # Load data from uploaded file
         qa_df = read_xlsx_by_sheetname(uploaded_file,process_type[0])
-        qa_df = read_xlsx_by_sheetname(uploaded_file,process_type[1])
+        auto_df = read_xlsx_by_sheetname(uploaded_file,process_type[1])
     qa_df = qa_df.drop(columns=qa_df.columns[qa_df.columns.str.contains('Unnamed', case=False)])
     qa_df.reset_index(drop=True, inplace=True)
 
