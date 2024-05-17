@@ -1,0 +1,5 @@
+.DS_Store
+*.pyc
+__pycache__
+tmm_app_v1.py
+util_v2.py
