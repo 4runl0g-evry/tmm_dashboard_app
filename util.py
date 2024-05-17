@@ -4,6 +4,7 @@ import os
 import base64
 import plotly.graph_objects as go
 from css_style import *
+import io
 
 # major_areas = ["REQUIREMENTS", "PLANNING & ESTIMATIONS"]
 process_type = ["QA PROCESS", "AUTOMATION PROCESS"]
@@ -112,8 +113,32 @@ def download_link(df):
     href = f'<a href="data:file/csv;base64,{b64}" download="downloaded_data.csv">Download CSV</a>'
     st.markdown(href, unsafe_allow_html=True)
 
+#download csv file
 def download(df):
     st.download_button(":white[Download CSV ]", df.to_csv(), mime='text/csv', file_name="downloaded_data.csv")
+
+# Create a function to save dataframes to an Excel file in memory
+def to_excel(dfs, sheetnames):
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        for df, sheetname in zip(dfs, sheetnames):
+            df.to_excel(writer, sheet_name=sheetname, index=False)
+    output.seek(0)
+    return output
+
+def download_xlsx(df1,df2):
+    # Create a list of dataframes and corresponding sheet names
+    dataframes = [df1, df2]
+    sheetnames = process_type
+
+    # Generate the Excel file
+    excel_data = to_excel(dataframes, sheetnames)
+    st.download_button(
+        label=':green[Download XLSX]',
+        data=excel_data,
+        file_name='downloaded_data.xlsx',
+        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
 
 def upload():
     # st.header("Upload a File")

@@ -108,7 +108,7 @@ def main():
             format_preview_df(automation_process_data_df)
 
     with st.sidebar:
-        # download(merged_updated_df)
+        download_xlsx(qa_merged_updated_df, auto_merged_updated_df)
         maturity_level_status()
                 
 
