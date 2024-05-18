@@ -124,9 +124,9 @@ def to_excel(dfs, sheetnames):
     output.seek(0)
     return output
 
-def download_xlsx(df1,df2):
+def download_xlsx(df1,df2,df3,df4):
     # Create a list of dataframes and corresponding sheet names
-    dataframes = [df1, df2]
+    dataframes = [df1, df2, df3, df4]
     sheetnames = process_type
 
     # Generate the Excel file

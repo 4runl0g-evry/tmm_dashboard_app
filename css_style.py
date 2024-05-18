@@ -8,7 +8,7 @@ def header_style(header_text, font_size, text_align):
         <style>
             /* Define a CSS class for the header */
             .header-text {{
-                font-size: 35px; /* Set the font size */
+                font-size: {font_size}px; /* Set the font size */
                 text-align: {text_align}; /* Set the text alignment */
             }}
 
