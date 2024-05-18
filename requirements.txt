@@ -5,3 +5,4 @@ openpyxl
 plotly
 plotly-express
 openai
+python-dotenv
