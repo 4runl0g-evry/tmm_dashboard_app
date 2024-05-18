@@ -5,6 +5,7 @@ from util import *
 from css_style import *
 from chart import *
 from constants import *
+from chatbot_impl import *
 
 def main():
 
@@ -179,6 +180,9 @@ def main():
             header_style(process_type[3],18,"center")
             format_preview_df(perf_testing_data_df)
 
+    with tabs[4]:
+        chatbot_text()
+        
     css = '''
     <style>
     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
