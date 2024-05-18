@@ -14,7 +14,7 @@ def main():
         uploaded_file = upload()
         print(f"*********  File Uploaded ? ********* {uploaded_file}")
         
-    tab_titles = [ "Dashboard", "Maturity Assessment",  "Pending Areas / Gaps", "Data preview"]
+    tab_titles = [ "DASHBOARD", "MATURITY ASSESSMENT",  "PENDING AREAS / GAPS", "DATA PREVIEW"]
     tabs = st.tabs(tab_titles)
     qa_process_data_df, automation_process_data_df = load_data_xlsx(uploaded_file)
     qa_list, auto_list = get_all_column_data(qa_process_data_df,automation_process_data_df)
@@ -109,7 +109,7 @@ def main():
     css = '''
     <style>
     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-    font-size:18px; font-weight: bold;
+    font-size:15px; font-weight: 700;
     }
     </style>
     '''
