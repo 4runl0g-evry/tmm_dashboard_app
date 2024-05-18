@@ -3,18 +3,7 @@ import pandas as pd
 import io
 from util import *
 from css_style import *
-
-def show_major_expander(list, major_value, uploaded_file):
-    # print(f"***********{major_value}*************")
-    with st.expander(major_value):
-        col1, col2 = st.columns([8,2])
-        with col1:
-            updated_df = display_checkbox_get_updated_list(list, major_value, uploaded_file)
-            updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
-            df_percent = calculate_percentage(updated_df)
-        with col2:
-            st.write(generate_color_bar(df_percent, "small"), unsafe_allow_html=True)
-        return updated_df, updated_unchecked_df, df_percent
+from chart import *
 
 def main():
 
@@ -73,18 +62,28 @@ def main():
 
     # PENDING AREAS / GAPS TAB
     with tabs[2]:
-        # Preview only unchecked items from df 
+        # Pie chart for unchecked items
         header_style(process_type[0],18,"center")
-        qa_merged_updated_uncheckbox_df = pd.concat([qa_updated_unchecked_df1, qa_updated_unchecked_df2, qa_updated_unchecked_df3,
-                                                  qa_updated_unchecked_df4, qa_updated_unchecked_df5,
-                                                  qa_updated_unchecked_df6, qa_updated_unchecked_df7], ignore_index=True)
-        format_preview_df(qa_merged_updated_uncheckbox_df)
+        qa_pie_chart = {qa_major_areas_array[0]:qa_df1_percent,
+                          qa_major_areas_array[1]:qa_df2_percent,
+                          qa_major_areas_array[2]:qa_df3_percent,
+                          qa_major_areas_array[3]:qa_df4_percent,
+                          qa_major_areas_array[4]:qa_df5_percent,
+                          qa_major_areas_array[5]:qa_df6_percent,
+                          qa_major_areas_array[6]:qa_df7_percent}
+        qa_fig = pie_chart(qa_pie_chart)
+        st.plotly_chart(qa_fig)
 
         header_style(process_type[1],18,"center")
-        auto_merged_updated_uncheckbox_df = pd.concat([auto_updated_unchecked_df1, auto_updated_unchecked_df2, auto_updated_unchecked_df3,
-                                                  auto_updated_unchecked_df4, auto_updated_unchecked_df5,
-                                                  auto_updated_unchecked_df6, auto_updated_unchecked_df7], ignore_index=True)
-        format_preview_df(auto_merged_updated_uncheckbox_df)
+        auto_pie_chart = {auto_major_areas_array[0]:auto_df1_percent,
+                          auto_major_areas_array[1]:auto_df2_percent,
+                          auto_major_areas_array[2]:auto_df3_percent,
+                          auto_major_areas_array[3]:auto_df4_percent,
+                          auto_major_areas_array[4]:auto_df5_percent,
+                          auto_major_areas_array[5]:auto_df6_percent,
+                          auto_major_areas_array[6]:auto_df7_percent}
+        auto_fig = pie_chart(auto_pie_chart)
+        st.plotly_chart(auto_fig)
 
     # DATA PREVIEW
     with tabs[3]:
