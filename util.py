@@ -179,6 +179,8 @@ def load_data_xlsx(uploaded_file):
         if os.path.exists("data/tmm_template.xlsx"):
             qa_df = read_xlsx_by_sheetname("data/tmm_template.xlsx",process_type[0])
             auto_df = read_xlsx_by_sheetname("data/tmm_template.xlsx",process_type[1])
+            db_df = read_xlsx_by_sheetname("data/tmm_template.xlsx",process_type[2])
+            perf_df = read_xlsx_by_sheetname("data/tmm_template.xlsx",process_type[3])
             # return df
         else:
             st.error("No file uploaded and local tmm_template.xlsx file not found.")
@@ -187,27 +189,40 @@ def load_data_xlsx(uploaded_file):
         # Load data from uploaded file
         qa_df = read_xlsx_by_sheetname(uploaded_file,process_type[0])
         auto_df = read_xlsx_by_sheetname(uploaded_file,process_type[1])
+        db_df = read_xlsx_by_sheetname(uploaded_file,process_type[2])
+        perf_df = read_xlsx_by_sheetname(uploaded_file,process_type[3])
+
     qa_df = qa_df.drop(columns=qa_df.columns[qa_df.columns.str.contains('Unnamed', case=False)])
     qa_df.reset_index(drop=True, inplace=True)
 
     auto_df = auto_df.drop(columns=auto_df.columns[auto_df.columns.str.contains('Unnamed', case=False)])
     auto_df.reset_index(drop=True, inplace=True)
 
-    return qa_df, auto_df
+    db_df = db_df.drop(columns=db_df.columns[db_df.columns.str.contains('Unnamed', case=False)])
+    db_df.reset_index(drop=True, inplace=True)
+
+    perf_df = perf_df.drop(columns=perf_df.columns[perf_df.columns.str.contains('Unnamed', case=False)])
+    perf_df.reset_index(drop=True, inplace=True)
+
+    return qa_df, auto_df, db_df, perf_df
 
 # return dataframe in a list
-def get_all_column_data(qa_df,auto_df):
-    if qa_df.empty or auto_df.empty:
-        st.warning(f"No data found for {qa_df} or {auto_df}.")
+def get_all_column_data(qa_df,auto_df,db_df,perf_df):
+    if qa_df.empty or auto_df.empty or db_df.empty or perf_df.empty:
+        st.warning(f"No data found for {qa_df} or {auto_df} or {db_df} or {perf_df}.")
     else:
         qa_all_column_values = qa_df[['CHECK','MAJOR','AREAS']].values.tolist()
         auto_all_column_values = auto_df[['CHECK','MAJOR','AREAS']].values.tolist()
-    return qa_all_column_values, auto_all_column_values
+        db_all_column_values = db_df[['CHECK','MAJOR','AREAS']].values.tolist()
+        perf_all_column_values = perf_df[['CHECK','MAJOR','AREAS']].values.tolist()
+    return qa_all_column_values, auto_all_column_values, db_all_column_values, perf_all_column_values
 
-def get_major_areas_by_process_type(qa_df, auto_df):
+def get_major_areas_by_process_type(qa_df, auto_df,db_df,perf_df):
     qa_df = qa_df['MAJOR'].unique()
     auto_df = auto_df['MAJOR'].unique()
-    return qa_df, auto_df
+    db_df = db_df['MAJOR'].unique()
+    perf_df = perf_df['MAJOR'].unique()
+    return qa_df, auto_df, db_df, perf_df
 
 # Format TRUE / FALSE values with symbols on df
 def format_preview_df(df):

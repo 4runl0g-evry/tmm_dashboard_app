@@ -10,18 +10,21 @@ def main():
 
     st.image('images/logo_white_bkgnd.png', width=170)
     header_style(page_title,22,"center")
-    
+
     with st.sidebar:
         st.header("Upload Existing File")
         uploaded_file = upload()
-        print(f"*********  File Uploaded ? ********* {uploaded_file}")
+        # print(f"*********  File Uploaded ? ********* {uploaded_file}")
         
     tabs = st.tabs(tab_titles)
-    qa_process_data_df, automation_process_data_df = load_data_xlsx(uploaded_file)
-    qa_list, auto_list = get_all_column_data(qa_process_data_df,automation_process_data_df)
-    qa_major_areas_array, auto_major_areas_array = get_major_areas_by_process_type(qa_process_data_df, automation_process_data_df)
+    qa_process_data_df, auto_testing_data_df, db_testing_data_df, perf_testing_data_df = load_data_xlsx(uploaded_file)
+    qa_major_areas_array, auto_major_areas_array, db_major_areas_array, perf_major_areas_array = get_major_areas_by_process_type(qa_process_data_df, auto_testing_data_df,db_testing_data_df, perf_testing_data_df)
+    qa_list, auto_list, db_list, perf_list = get_all_column_data(qa_process_data_df,auto_testing_data_df,db_testing_data_df, perf_testing_data_df)
+    
     qa_sub_area_list_01, qa_sub_area_list_02, qa_sub_area_list_03, qa_sub_area_list_04, qa_sub_area_list_05, qa_sub_area_list_06, qa_sub_area_list_07 = get_areas_list(qa_list, qa_major_areas_array)
     auto_sub_area_list_01, auto_sub_area_list_02, auto_sub_area_list_03, auto_sub_area_list_04, auto_sub_area_list_05, auto_sub_area_list_06, auto_sub_area_list_07 = get_areas_list(auto_list, auto_major_areas_array)
+    db_sub_area_list_01, db_sub_area_list_02, db_sub_area_list_03, db_sub_area_list_04, db_sub_area_list_05, db_sub_area_list_06, db_sub_area_list_07 = get_areas_list(db_list, db_major_areas_array)
+    perf_sub_area_list_01, perf_sub_area_list_02, perf_sub_area_list_03, perf_sub_area_list_04, perf_sub_area_list_05, perf_sub_area_list_06, perf_sub_area_list_07 = get_areas_list(perf_list, perf_major_areas_array)
 
     # MATURITY ASSESSMENT TAB
     with tabs[1]:
@@ -43,6 +46,24 @@ def main():
         auto_updated_df6, auto_df6_percent = show_major_expander(auto_sub_area_list_06, auto_major_areas_array[5], uploaded_file)
         auto_updated_df7, auto_df7_percent = show_major_expander(auto_sub_area_list_07, auto_major_areas_array[6], uploaded_file)
         
+        header_style(process_type[2],18,"center")
+        db_updated_df1, db_df1_percent = show_major_expander(db_sub_area_list_01, db_major_areas_array[0], uploaded_file)
+        db_updated_df2, db_df2_percent = show_major_expander(db_sub_area_list_02, db_major_areas_array[1], uploaded_file)
+        db_updated_df3, db_df3_percent = show_major_expander(db_sub_area_list_03, db_major_areas_array[2], uploaded_file)
+        db_updated_df4, db_df4_percent = show_major_expander(db_sub_area_list_04, db_major_areas_array[3], uploaded_file)
+        db_updated_df5, db_df5_percent = show_major_expander(db_sub_area_list_05, db_major_areas_array[4], uploaded_file)
+        db_updated_df6, db_df6_percent = show_major_expander(db_sub_area_list_06, db_major_areas_array[5], uploaded_file)
+        db_updated_df7, db_df7_percent = show_major_expander(db_sub_area_list_07, db_major_areas_array[6], uploaded_file)
+
+        header_style(process_type[3],18,"center")
+        perf_updated_df1, perf_df1_percent = show_major_expander(perf_sub_area_list_01, perf_major_areas_array[0], uploaded_file)
+        perf_updated_df2, perf_df2_percent = show_major_expander(perf_sub_area_list_02, perf_major_areas_array[1], uploaded_file)
+        perf_updated_df3, perf_df3_percent = show_major_expander(perf_sub_area_list_03, perf_major_areas_array[2], uploaded_file)
+        perf_updated_df4, perf_df4_percent = show_major_expander(perf_sub_area_list_04, perf_major_areas_array[3], uploaded_file)
+        perf_updated_df5, perf_df5_percent = show_major_expander(perf_sub_area_list_05, perf_major_areas_array[4], uploaded_file)
+        perf_updated_df6, perf_df6_percent = show_major_expander(perf_sub_area_list_06, perf_major_areas_array[5], uploaded_file)
+        perf_updated_df7, perf_df7_percent = show_major_expander(perf_sub_area_list_07, perf_major_areas_array[6], uploaded_file)
+
     # DASHBOARD TAB
     with tabs[0]:
         options = st.selectbox('Select Major Areas: ',process_type)
@@ -58,6 +79,18 @@ def main():
             plot_gauge(rating,  color, caption, options, 5)
             display_area_table(auto_major_areas_array,auto_df1_percent, auto_df2_percent, auto_df3_percent, 
                                auto_df4_percent, auto_df5_percent, auto_df6_percent, auto_df7_percent)
+        elif options == process_type[2]:
+            color, caption, rating = get_color_and_caption((db_df1_percent+db_df2_percent+db_df3_percent
+                                                            +db_df4_percent+db_df5_percent+db_df6_percent+db_df7_percent)/7)
+            plot_gauge(rating,  color, caption, options, 5)
+            display_area_table(db_major_areas_array,db_df1_percent, db_df2_percent, db_df3_percent, 
+                               db_df4_percent, db_df5_percent, db_df6_percent, db_df7_percent)
+        elif options == process_type[3]:
+            color, caption, rating = get_color_and_caption((perf_df1_percent+perf_df2_percent+perf_df3_percent
+                                                            +perf_df4_percent+perf_df5_percent+perf_df6_percent+perf_df7_percent)/7)
+            plot_gauge(rating,  color, caption, options, 5)
+            display_area_table(perf_major_areas_array,perf_df1_percent, perf_df2_percent, perf_df3_percent, 
+                               perf_df4_percent, perf_df5_percent, perf_df6_percent, perf_df7_percent)
         else:
             plot_gauge(0, colour_code_range(0), "", options, 5)
 
@@ -105,7 +138,7 @@ def main():
             header_style(process_type[0],18,"center")
             format_preview_df(qa_process_data_df)
             header_style(process_type[1],18,"center")
-            format_preview_df(automation_process_data_df)
+            format_preview_df(auto_testing_data_df)
 
     css = '''
     <style>
