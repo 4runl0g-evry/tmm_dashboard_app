@@ -4,17 +4,18 @@ import io
 from util import *
 from css_style import *
 from chart import *
+from constants import *
 
 def main():
 
     st.image('images/logo_white_bkgnd.png', width=170)
-    header_style("QA PROCESS & AUTOMATION TESTING MATURITY ASSESSMENT",22,"center")
+    header_style(page_title,22,"center")
+    
     with st.sidebar:
         st.header("Upload Existing File")
         uploaded_file = upload()
         print(f"*********  File Uploaded ? ********* {uploaded_file}")
         
-    tab_titles = [ "DASHBOARD", "MATURITY ASSESSMENT",  "PENDING AREAS / GAPS", "DATA PREVIEW"]
     tabs = st.tabs(tab_titles)
     qa_process_data_df, automation_process_data_df = load_data_xlsx(uploaded_file)
     qa_list, auto_list = get_all_column_data(qa_process_data_df,automation_process_data_df)
@@ -25,22 +26,22 @@ def main():
     # MATURITY ASSESSMENT TAB
     with tabs[1]:
         header_style(process_type[0],18,"center")
-        qa_updated_df1, qa_updated_unchecked_df1, qa_df1_percent = show_major_expander(qa_sub_area_list_01, qa_major_areas_array[0], uploaded_file)
-        qa_updated_df2, qa_updated_unchecked_df2, qa_df2_percent = show_major_expander(qa_sub_area_list_02, qa_major_areas_array[1], uploaded_file)
-        qa_updated_df3, qa_updated_unchecked_df3, qa_df3_percent = show_major_expander(qa_sub_area_list_03, qa_major_areas_array[2], uploaded_file)
-        qa_updated_df4, qa_updated_unchecked_df4, qa_df4_percent = show_major_expander(qa_sub_area_list_04, qa_major_areas_array[3], uploaded_file)
-        qa_updated_df5, qa_updated_unchecked_df5, qa_df5_percent = show_major_expander(qa_sub_area_list_05, qa_major_areas_array[4], uploaded_file)
-        qa_updated_df6, qa_updated_unchecked_df6, qa_df6_percent = show_major_expander(qa_sub_area_list_06, qa_major_areas_array[5], uploaded_file)
-        qa_updated_df7, qa_updated_unchecked_df7, qa_df7_percent = show_major_expander(qa_sub_area_list_07, qa_major_areas_array[6], uploaded_file)
+        qa_updated_df1, qa_df1_percent = show_major_expander(qa_sub_area_list_01, qa_major_areas_array[0], uploaded_file)
+        qa_updated_df2, qa_df2_percent = show_major_expander(qa_sub_area_list_02, qa_major_areas_array[1], uploaded_file)
+        qa_updated_df3, qa_df3_percent = show_major_expander(qa_sub_area_list_03, qa_major_areas_array[2], uploaded_file)
+        qa_updated_df4, qa_df4_percent = show_major_expander(qa_sub_area_list_04, qa_major_areas_array[3], uploaded_file)
+        qa_updated_df5, qa_df5_percent = show_major_expander(qa_sub_area_list_05, qa_major_areas_array[4], uploaded_file)
+        qa_updated_df6, qa_df6_percent = show_major_expander(qa_sub_area_list_06, qa_major_areas_array[5], uploaded_file)
+        qa_updated_df7, qa_df7_percent = show_major_expander(qa_sub_area_list_07, qa_major_areas_array[6], uploaded_file)
 
         header_style(process_type[1],18,"center")
-        auto_updated_df1, auto_updated_unchecked_df1, auto_df1_percent = show_major_expander(auto_sub_area_list_01, auto_major_areas_array[0], uploaded_file)
-        auto_updated_df2, auto_updated_unchecked_df2, auto_df2_percent = show_major_expander(auto_sub_area_list_02, auto_major_areas_array[1], uploaded_file)
-        auto_updated_df3, auto_updated_unchecked_df3, auto_df3_percent = show_major_expander(auto_sub_area_list_03, auto_major_areas_array[2], uploaded_file)
-        auto_updated_df4, auto_updated_unchecked_df4, auto_df4_percent = show_major_expander(auto_sub_area_list_04, auto_major_areas_array[3], uploaded_file)
-        auto_updated_df5, auto_updated_unchecked_df5, auto_df5_percent = show_major_expander(auto_sub_area_list_05, auto_major_areas_array[4], uploaded_file)
-        auto_updated_df6, auto_updated_unchecked_df6, auto_df6_percent = show_major_expander(auto_sub_area_list_06, auto_major_areas_array[5], uploaded_file)
-        auto_updated_df7, auto_updated_unchecked_df7, auto_df7_percent = show_major_expander(auto_sub_area_list_07, auto_major_areas_array[6], uploaded_file)
+        auto_updated_df1, auto_df1_percent = show_major_expander(auto_sub_area_list_01, auto_major_areas_array[0], uploaded_file)
+        auto_updated_df2, auto_df2_percent = show_major_expander(auto_sub_area_list_02, auto_major_areas_array[1], uploaded_file)
+        auto_updated_df3, auto_df3_percent = show_major_expander(auto_sub_area_list_03, auto_major_areas_array[2], uploaded_file)
+        auto_updated_df4, auto_df4_percent = show_major_expander(auto_sub_area_list_04, auto_major_areas_array[3], uploaded_file)
+        auto_updated_df5, auto_df5_percent = show_major_expander(auto_sub_area_list_05, auto_major_areas_array[4], uploaded_file)
+        auto_updated_df6, auto_df6_percent = show_major_expander(auto_sub_area_list_06, auto_major_areas_array[5], uploaded_file)
+        auto_updated_df7, auto_df7_percent = show_major_expander(auto_sub_area_list_07, auto_major_areas_array[6], uploaded_file)
         
     # DASHBOARD TAB
     with tabs[0]:
