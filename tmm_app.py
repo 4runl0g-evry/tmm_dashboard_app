@@ -106,6 +106,15 @@ def main():
             header_style(process_type[1],18,"center")
             format_preview_df(automation_process_data_df)
 
+    css = '''
+    <style>
+    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+    font-size:18px; font-weight: bold;
+    }
+    </style>
+    '''
+    st.markdown(css, unsafe_allow_html=True)
+
     with st.sidebar:
         download_xlsx(qa_merged_updated_df, auto_merged_updated_df)
         maturity_level_status()
