@@ -5,7 +5,6 @@ from util import *
 from css_style import *
 from chart import *
 from constants import *
-from chatbot_impl import *
 from chat_with_pdf import *
 
 def tmm_web_app():
