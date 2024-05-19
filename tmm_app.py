@@ -10,7 +10,7 @@ from chatbot_impl import *
 def main():
 
     st.image('images/logo_white_bkgnd.png', width=170)
-    header_style(page_title,25,"center")
+    header_style(page_title,30,"center")
 
     with st.sidebar:
         st.header("Upload Existing File")
@@ -182,7 +182,7 @@ def main():
 
     with tabs[4]:
         chatbot_text()
-        
+
     css = '''
     <style>
     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
