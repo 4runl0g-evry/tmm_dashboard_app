@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from util import *
+from constants import *
 
 def header_style(header_text, font_size, text_align):
 # Display the header with custom CSS
@@ -28,7 +29,7 @@ def header_style(header_text, font_size, text_align):
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 def maturity_level_status():
-    data = pd.DataFrame({'MATURITY LEVEL': ['INITIAL (LEVEL 1)', 'MANAGED (LEVEL 2)', 'DEFINED (LEVEL 3)', 'MEASURED (LEVEL 4)','OPTIMIZED (LEVEL 5)']})
+    data = pd.DataFrame(maturity_level)
 
     # Define the color codes for each row
     color_codes = ['red', '#387E99', '#FFC000', '#F48735', '#00BD32']
@@ -53,6 +54,7 @@ def maturity_level_status():
     }
     table.dataframe td {
         text-align: center;
+        font-size: 17px;
     }
     </style>
     """, unsafe_allow_html=True)

@@ -6,6 +6,7 @@ from css_style import *
 from chart import *
 from constants import *
 from chatbot_impl import *
+from chat_with_pdf import *
 
 def tmm_web_app():
 
@@ -181,7 +182,9 @@ def tmm_web_app():
             format_preview_df(perf_testing_data_df)
 
     with tabs[4]:
-        chatbot_text()
+        # chatbot_text()
+        chat_with_pdf()
+
 
     css = '''
     <style>

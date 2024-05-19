@@ -3,3 +3,6 @@
 __pycache__
 tmm_app_v1.py
 util_v2.py
+*.env
+*.faiss
+*.pkl
