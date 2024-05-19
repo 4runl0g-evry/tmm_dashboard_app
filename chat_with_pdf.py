@@ -8,7 +8,7 @@ from langchain.vectorstores import FAISS
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-from langchain.llms import HuggingFaceHub
+# from langchain.llms import HuggingFaceHub
 
 def get_pdf_text(pdf_docs):
     text = ""
