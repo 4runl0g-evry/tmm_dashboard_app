@@ -7,7 +7,7 @@ from chart import *
 from constants import *
 from chatbot_impl import *
 
-def main():
+def tmm_web_app():
 
     st.image('images/logo_white_bkgnd.png', width=170)
     header_style(page_title,30,"center")
@@ -199,4 +199,4 @@ def main():
                 
 
 if __name__ == "__main__":
-    main()
+    tmm_web_app()
