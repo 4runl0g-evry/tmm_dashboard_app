@@ -10,6 +10,7 @@ def header_style(header_text, font_size, text_align):
             .header-text {{
                 font-size: {font_size}px; /* Set the font size */
                 text-align: {text_align}; /* Set the text alignment */
+                font-weight: bold;
             }}
 
             /* Define a CSS class for the divider */
