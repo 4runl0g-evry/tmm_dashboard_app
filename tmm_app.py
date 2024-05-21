@@ -30,40 +30,40 @@ def tmm_web_app():
     # MATURITY ASSESSMENT TAB
     with tabs[1]:
         header_style(process_type[0],18,"center")
-        qa_updated_df1, qa_df1_percent = show_major_expander(qa_sub_area_list_01, qa_major_areas_array[0], uploaded_file)
-        qa_updated_df2, qa_df2_percent = show_major_expander(qa_sub_area_list_02, qa_major_areas_array[1], uploaded_file)
-        qa_updated_df3, qa_df3_percent = show_major_expander(qa_sub_area_list_03, qa_major_areas_array[2], uploaded_file)
-        qa_updated_df4, qa_df4_percent = show_major_expander(qa_sub_area_list_04, qa_major_areas_array[3], uploaded_file)
-        qa_updated_df5, qa_df5_percent = show_major_expander(qa_sub_area_list_05, qa_major_areas_array[4], uploaded_file)
-        qa_updated_df6, qa_df6_percent = show_major_expander(qa_sub_area_list_06, qa_major_areas_array[5], uploaded_file)
-        qa_updated_df7, qa_df7_percent = show_major_expander(qa_sub_area_list_07, qa_major_areas_array[6], uploaded_file)
+        qa_updated_df1, qa_updated_unchecked_df1, qa_df1_percent = show_major_expander(qa_sub_area_list_01, qa_major_areas_array[0], uploaded_file)
+        qa_updated_df2, qa_updated_unchecked_df2, qa_df2_percent = show_major_expander(qa_sub_area_list_02, qa_major_areas_array[1], uploaded_file)
+        qa_updated_df3, qa_updated_unchecked_df3, qa_df3_percent = show_major_expander(qa_sub_area_list_03, qa_major_areas_array[2], uploaded_file)
+        qa_updated_df4, qa_updated_unchecked_df4, qa_df4_percent = show_major_expander(qa_sub_area_list_04, qa_major_areas_array[3], uploaded_file)
+        qa_updated_df5, qa_updated_unchecked_df5, qa_df5_percent = show_major_expander(qa_sub_area_list_05, qa_major_areas_array[4], uploaded_file)
+        qa_updated_df6, qa_updated_unchecked_df6, qa_df6_percent = show_major_expander(qa_sub_area_list_06, qa_major_areas_array[5], uploaded_file)
+        qa_updated_df7, qa_updated_unchecked_df7, qa_df7_percent = show_major_expander(qa_sub_area_list_07, qa_major_areas_array[6], uploaded_file)
 
         header_style(process_type[1],18,"center")
-        auto_updated_df1, auto_df1_percent = show_major_expander(auto_sub_area_list_01, auto_major_areas_array[0], uploaded_file)
-        auto_updated_df2, auto_df2_percent = show_major_expander(auto_sub_area_list_02, auto_major_areas_array[1], uploaded_file)
-        auto_updated_df3, auto_df3_percent = show_major_expander(auto_sub_area_list_03, auto_major_areas_array[2], uploaded_file)
-        auto_updated_df4, auto_df4_percent = show_major_expander(auto_sub_area_list_04, auto_major_areas_array[3], uploaded_file)
-        auto_updated_df5, auto_df5_percent = show_major_expander(auto_sub_area_list_05, auto_major_areas_array[4], uploaded_file)
-        auto_updated_df6, auto_df6_percent = show_major_expander(auto_sub_area_list_06, auto_major_areas_array[5], uploaded_file)
-        auto_updated_df7, auto_df7_percent = show_major_expander(auto_sub_area_list_07, auto_major_areas_array[6], uploaded_file)
+        auto_updated_df1, auto_updated_unchecked_df1, auto_df1_percent = show_major_expander(auto_sub_area_list_01, auto_major_areas_array[0], uploaded_file)
+        auto_updated_df2, auto_updated_unchecked_df2, auto_df2_percent = show_major_expander(auto_sub_area_list_02, auto_major_areas_array[1], uploaded_file)
+        auto_updated_df3, auto_updated_unchecked_df3, auto_df3_percent = show_major_expander(auto_sub_area_list_03, auto_major_areas_array[2], uploaded_file)
+        auto_updated_df4, auto_updated_unchecked_df4, auto_df4_percent = show_major_expander(auto_sub_area_list_04, auto_major_areas_array[3], uploaded_file)
+        auto_updated_df5, auto_updated_unchecked_df5, auto_df5_percent = show_major_expander(auto_sub_area_list_05, auto_major_areas_array[4], uploaded_file)
+        auto_updated_df6, auto_updated_unchecked_df6, auto_df6_percent = show_major_expander(auto_sub_area_list_06, auto_major_areas_array[5], uploaded_file)
+        auto_updated_df7, auto_updated_unchecked_df7, auto_df7_percent = show_major_expander(auto_sub_area_list_07, auto_major_areas_array[6], uploaded_file)
         
         header_style(process_type[2],18,"center")
-        db_updated_df1, db_df1_percent = show_major_expander(db_sub_area_list_01, db_major_areas_array[0], uploaded_file)
-        db_updated_df2, db_df2_percent = show_major_expander(db_sub_area_list_02, db_major_areas_array[1], uploaded_file)
-        db_updated_df3, db_df3_percent = show_major_expander(db_sub_area_list_03, db_major_areas_array[2], uploaded_file)
-        db_updated_df4, db_df4_percent = show_major_expander(db_sub_area_list_04, db_major_areas_array[3], uploaded_file)
-        db_updated_df5, db_df5_percent = show_major_expander(db_sub_area_list_05, db_major_areas_array[4], uploaded_file)
-        db_updated_df6, db_df6_percent = show_major_expander(db_sub_area_list_06, db_major_areas_array[5], uploaded_file)
-        db_updated_df7, db_df7_percent = show_major_expander(db_sub_area_list_07, db_major_areas_array[6], uploaded_file)
+        db_updated_df1, db1,db_df1_percent = show_major_expander(db_sub_area_list_01, db_major_areas_array[0], uploaded_file)
+        db_updated_df2, db2,db_df2_percent = show_major_expander(db_sub_area_list_02, db_major_areas_array[1], uploaded_file)
+        db_updated_df3, db3,db_df3_percent = show_major_expander(db_sub_area_list_03, db_major_areas_array[2], uploaded_file)
+        db_updated_df4, db4,db_df4_percent = show_major_expander(db_sub_area_list_04, db_major_areas_array[3], uploaded_file)
+        db_updated_df5, db5,db_df5_percent = show_major_expander(db_sub_area_list_05, db_major_areas_array[4], uploaded_file)
+        db_updated_df6, db6,db_df6_percent = show_major_expander(db_sub_area_list_06, db_major_areas_array[5], uploaded_file)
+        db_updated_df7, db7,db_df7_percent = show_major_expander(db_sub_area_list_07, db_major_areas_array[6], uploaded_file)
 
         header_style(process_type[3],18,"center")
-        perf_updated_df1, perf_df1_percent = show_major_expander(perf_sub_area_list_01, perf_major_areas_array[0], uploaded_file)
-        perf_updated_df2, perf_df2_percent = show_major_expander(perf_sub_area_list_02, perf_major_areas_array[1], uploaded_file)
-        perf_updated_df3, perf_df3_percent = show_major_expander(perf_sub_area_list_03, perf_major_areas_array[2], uploaded_file)
-        perf_updated_df4, perf_df4_percent = show_major_expander(perf_sub_area_list_04, perf_major_areas_array[3], uploaded_file)
-        perf_updated_df5, perf_df5_percent = show_major_expander(perf_sub_area_list_05, perf_major_areas_array[4], uploaded_file)
-        perf_updated_df6, perf_df6_percent = show_major_expander(perf_sub_area_list_06, perf_major_areas_array[5], uploaded_file)
-        perf_updated_df7, perf_df7_percent = show_major_expander(perf_sub_area_list_07, perf_major_areas_array[6], uploaded_file)
+        perf_updated_df1, p1,perf_df1_percent = show_major_expander(perf_sub_area_list_01, perf_major_areas_array[0], uploaded_file)
+        perf_updated_df2, p2,perf_df2_percent = show_major_expander(perf_sub_area_list_02, perf_major_areas_array[1], uploaded_file)
+        perf_updated_df3, p3,perf_df3_percent = show_major_expander(perf_sub_area_list_03, perf_major_areas_array[2], uploaded_file)
+        perf_updated_df4, p4,perf_df4_percent = show_major_expander(perf_sub_area_list_04, perf_major_areas_array[3], uploaded_file)
+        perf_updated_df5, p5,perf_df5_percent = show_major_expander(perf_sub_area_list_05, perf_major_areas_array[4], uploaded_file)
+        perf_updated_df6, p6,perf_df6_percent = show_major_expander(perf_sub_area_list_06, perf_major_areas_array[5], uploaded_file)
+        perf_updated_df7, p7,perf_df7_percent = show_major_expander(perf_sub_area_list_07, perf_major_areas_array[6], uploaded_file)
 
     # DASHBOARD TAB
     with tabs[0]:
@@ -99,51 +99,63 @@ def tmm_web_app():
     with tabs[2]:
         # QA process pie chart for unchecked items
         with st.expander(label=process_type[0]):
-            qa_pie_chart = {qa_major_areas_array[0]:qa_df1_percent,
-                            qa_major_areas_array[1]:qa_df2_percent,
-                            qa_major_areas_array[2]:qa_df3_percent,
-                            qa_major_areas_array[3]:qa_df4_percent,
-                            qa_major_areas_array[4]:qa_df5_percent,
-                            qa_major_areas_array[5]:qa_df6_percent,
-                            qa_major_areas_array[6]:qa_df7_percent}
-            qa_fig = pie_chart(qa_pie_chart)
-            st.plotly_chart(qa_fig)
+            # qa_pie_chart = {qa_major_areas_array[0]:qa_df1_percent,
+            #                 qa_major_areas_array[1]:qa_df2_percent,
+            #                 qa_major_areas_array[2]:qa_df3_percent,
+            #                 qa_major_areas_array[3]:qa_df4_percent,
+            #                 qa_major_areas_array[4]:qa_df5_percent,
+            #                 qa_major_areas_array[5]:qa_df6_percent,
+            #                 qa_major_areas_array[6]:qa_df7_percent}
+            # qa_fig = pie_chart(qa_pie_chart)
+            # st.plotly_chart(qa_fig)
+            qa_merged_updated_uncheckbox_df = pd.concat([qa_updated_unchecked_df1, qa_updated_unchecked_df2, qa_updated_unchecked_df3,
+                                                  qa_updated_unchecked_df4, qa_updated_unchecked_df5,
+                                                  qa_updated_unchecked_df6, qa_updated_unchecked_df7], ignore_index=True)
+            format_preview_df(qa_merged_updated_uncheckbox_df)
 
         # Automation Testing pie chart for unchecked items
         with st.expander(label=process_type[1]):
-            auto_pie_chart = {auto_major_areas_array[0]:auto_df1_percent,
-                            auto_major_areas_array[1]:auto_df2_percent,
-                            auto_major_areas_array[2]:auto_df3_percent,
-                            auto_major_areas_array[3]:auto_df4_percent,
-                            auto_major_areas_array[4]:auto_df5_percent,
-                            auto_major_areas_array[5]:auto_df6_percent,
-                            auto_major_areas_array[6]:auto_df7_percent}
-            auto_fig = pie_chart(auto_pie_chart)
-            st.plotly_chart(auto_fig)
+            # auto_pie_chart = {auto_major_areas_array[0]:auto_df1_percent,
+            #                 auto_major_areas_array[1]:auto_df2_percent,
+            #                 auto_major_areas_array[2]:auto_df3_percent,
+            #                 auto_major_areas_array[3]:auto_df4_percent,
+            #                 auto_major_areas_array[4]:auto_df5_percent,
+            #                 auto_major_areas_array[5]:auto_df6_percent,
+            #                 auto_major_areas_array[6]:auto_df7_percent}
+            # auto_fig = pie_chart(auto_pie_chart)
+            # st.plotly_chart(auto_fig)
+            auto_merged_updated_uncheckbox_df = pd.concat([auto_updated_unchecked_df1, auto_updated_unchecked_df2, auto_updated_unchecked_df3,
+                                                  auto_updated_unchecked_df4, auto_updated_unchecked_df5,
+                                                  auto_updated_unchecked_df6, auto_updated_unchecked_df7], ignore_index=True)
+            format_preview_df(auto_merged_updated_uncheckbox_df)
 
         # DB Testing pie chart for unchecked items
         with st.expander(label=process_type[2]):
-            db_pie_chart = {db_major_areas_array[0]:db_df1_percent,
-                            db_major_areas_array[1]:db_df2_percent,
-                            db_major_areas_array[2]:db_df3_percent,
-                            db_major_areas_array[3]:db_df4_percent,
-                            db_major_areas_array[4]:db_df5_percent,
-                            db_major_areas_array[5]:db_df6_percent,
-                            db_major_areas_array[6]:db_df7_percent}
-            db_fig = pie_chart(db_pie_chart)
-            st.plotly_chart(db_fig)
+            # db_pie_chart = {db_major_areas_array[0]:db_df1_percent,
+            #                 db_major_areas_array[1]:db_df2_percent,
+            #                 db_major_areas_array[2]:db_df3_percent,
+            #                 db_major_areas_array[3]:db_df4_percent,
+            #                 db_major_areas_array[4]:db_df5_percent,
+            #                 db_major_areas_array[5]:db_df6_percent,
+            #                 db_major_areas_array[6]:db_df7_percent}
+            # db_fig = pie_chart(db_pie_chart)
+            # st.plotly_chart(db_fig)
+            db_merged_updated_uncheckbox_df = pd.concat([db1, db2, db3, db4, db5, db6, db7], ignore_index=True)
+            format_preview_df(db_merged_updated_uncheckbox_df)
 
         # Performance Testing pie chart for unchecked items
         with st.expander(label=process_type[3]):
-            perf_pie_chart = {perf_major_areas_array[0]:perf_df1_percent,
-                            perf_major_areas_array[1]:perf_df2_percent,
-                            perf_major_areas_array[2]:perf_df3_percent,
-                            perf_major_areas_array[3]:perf_df4_percent,
-                            perf_major_areas_array[4]:perf_df5_percent,
-                            perf_major_areas_array[5]:perf_df6_percent,
-                            perf_major_areas_array[6]:perf_df7_percent}
-            perf_fig = pie_chart(perf_pie_chart)
-            st.plotly_chart(perf_fig)
+            # perf_pie_chart = {perf_major_areas_array[0]:perf_df1_percent,
+            #                 perf_major_areas_array[1]:perf_df2_percent,
+            #                 perf_major_areas_array[2]:perf_df3_percent,
+            #                 perf_major_areas_array[3]:perf_df4_percent,
+            #                 perf_major_areas_array[4]:perf_df5_percent,
+            #                 perf_major_areas_array[5]:perf_df6_percent,
+            #                 perf_major_areas_array[6]:perf_df7_percent}
+            # perf_fig = pie_chart(perf_pie_chart)
+            # st.plotly_chart(perf_fig)
+            perf_merged_updated_uncheckbox_df = pd.concat([p1, p2, p3, p4, p5, p6, p7], ignore_index=True)
+            format_preview_df(perf_merged_updated_uncheckbox_df)
 
     # DATA PREVIEW
     with tabs[3]:

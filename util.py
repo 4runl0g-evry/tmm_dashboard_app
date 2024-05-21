@@ -13,11 +13,11 @@ def show_major_expander(list, major_value, uploaded_file):
         col1, col2 = st.columns([8,2])
         with col1:
             updated_df = display_checkbox_get_updated_list(list, major_value, uploaded_file)
-            # updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
+            updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
             df_percent = calculate_percentage(updated_df)
         with col2:
             st.write(generate_color_bar(df_percent, "small"), unsafe_allow_html=True)
-        return updated_df, df_percent
+        return updated_df, updated_unchecked_df, df_percent
     
 # Method to calculate percentage of selected checkboxes
 def calculate_percentage(df):
