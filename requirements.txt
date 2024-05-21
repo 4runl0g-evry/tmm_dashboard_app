@@ -8,7 +8,7 @@ openai==0.27.6
 python-dotenv
 # for chat_with_pdf
 google-generativeai
-langchain
+langchain[all]
 PyPDF2
 faiss-cpu
 langchain_google_genai
