@@ -11,4 +11,4 @@ google-generativeai
 langchain[all]
 PyPDF2
 faiss-cpu
-langchain_google_genai
+# langchain_google_genai
