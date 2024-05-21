@@ -10,6 +10,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 # from langchain.llms import HuggingFaceHub
+from util import *
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -50,6 +51,59 @@ def get_conversation_chain(vectorstore):
     )
     return conversation_chain
 
+def display_checkbox_get_updated_list_chat_pdf(checkbox_dicts,suffix):
+    # print(checkbox_dicts)
+    # main_checkboxes = [st.checkbox(label=":blue-background[Select All / Deselect All]",key={suffix})]
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    # # Display individual checkboxes based on the states
+    for checkbox_dict in checkbox_dicts:
+        for key in checkbox_dict:
+            checkbox_dict[key] = st.checkbox(key, checkbox_dict[key])
+    df = pd.DataFrame.from_dict(checkbox_dict, orient='index',columns=['AREAS'])
+    df.reset_index(inplace=True)
+    df.columns = ['AREAS','CHECK']
+    df["MAJOR"] = suffix
+    desired_order = ['CHECK','MAJOR','AREAS']
+    df_reordered = df[desired_order]
+    # print(df_reordered)
+    return df_reordered
+
+def show_major_expander_chat_pdf():
+        st.write("Current Metrics Data. Click 'Update' button to SelectAll")
+    # if button_clicked:
+        list = [{'Impact Analysis of enhancment/defect/CR/feature O': False, 
+                'Grooming/Working Sessions with BA O': False, 
+                'Querylog/Clarification log Updation O': False, 
+                'Define Testing Entry/ExitCriteria O': False, 
+                'Freeze Requirement and Acceptance Criteria O': False}]
+        with st.expander(label="Requirement Analysis",expanded=True):
+            col1, col2 = st.columns([8,2])
+            with col1:
+                updated_df = display_checkbox_get_updated_list_chat_pdf(list, "Requirement Analysis")
+                # updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
+                df_percent = calculate_percentage(updated_df)
+            with col2:
+                st.write(generate_color_bar(df_percent, "small"), unsafe_allow_html=True)
+
+def show_major_expander_chat_pdf_post_update():
+    # if button_clicked:
+        list = [{'Impact Analysis of enhancment/defect/CR/feature U': True, 
+                'Grooming/Working Sessions with BA U': True, 
+                'Querylog/Clarification log Updation U': True, 
+                'Define Testing Entry/ExitCriteria U': True, 
+                'Freeze Requirement and Acceptance Criteria U': True}]
+        with st.expander(label="Requirement Analysis",expanded=True):
+            col1, col2 = st.columns([8,2])
+            with col1:
+                updated_df = display_checkbox_get_updated_list_chat_pdf(list, "Requirement Analysis UP")
+                # updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
+                df_percent = calculate_percentage(updated_df)
+            with col2:
+                st.write(generate_color_bar(df_percent, "small"), unsafe_allow_html=True)
+    
+def update_action():
+    st.spinner("Updating Assessment Metrics...")
+
 def handle_userinput(user_question):
     response = st.session_state.conversation({'question': user_question})
     st.session_state.chat_history = response['chat_history']
@@ -63,6 +117,11 @@ def handle_userinput(user_question):
             st.chat_message("assistant").write(message.content)
             # st.write(bot_template.replace(
             #     "{{MSG}}", message.content), unsafe_allow_html=True)
+    if st.button("Update"):
+        update_action()
+        show_major_expander_chat_pdf_post_update()
+    else:
+        show_major_expander_chat_pdf()
 
 def chat_with_pdf():
     load_dotenv()
@@ -96,3 +155,6 @@ def chat_with_pdf():
     user_question = st.text_input("Ask a question about uploaded PDFs:")
     if user_question:
         handle_userinput(user_question)
+
+    
+    

@@ -26,7 +26,7 @@ def tmm_web_app():
     auto_sub_area_list_01, auto_sub_area_list_02, auto_sub_area_list_03, auto_sub_area_list_04, auto_sub_area_list_05, auto_sub_area_list_06, auto_sub_area_list_07 = get_areas_list(auto_list, auto_major_areas_array)
     db_sub_area_list_01, db_sub_area_list_02, db_sub_area_list_03, db_sub_area_list_04, db_sub_area_list_05, db_sub_area_list_06, db_sub_area_list_07 = get_areas_list(db_list, db_major_areas_array)
     perf_sub_area_list_01, perf_sub_area_list_02, perf_sub_area_list_03, perf_sub_area_list_04, perf_sub_area_list_05, perf_sub_area_list_06, perf_sub_area_list_07 = get_areas_list(perf_list, perf_major_areas_array)
-
+    
     # MATURITY ASSESSMENT TAB
     with tabs[1]:
         header_style(process_type[0],18,"center")
