@@ -12,4 +12,5 @@ langchain
 langchain-community
 PyPDF2
 faiss-cpu
+tiktoken
 # langchain_google_genai
