@@ -7,7 +7,7 @@ plotly-express
 openai==0.27.6
 python-dotenv
 # for chat_with_pdf
-google-generativeai
+# google-generativeai
 langchain[all]
 PyPDF2
 faiss-cpu
