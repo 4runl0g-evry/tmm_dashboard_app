@@ -56,7 +56,8 @@ def display_unselected_values_v2(dict_values):
     return df
 
 def display_checkbox_get_updated_list(checkbox_dicts,suffix,uploaded_file):
-    main_checkboxes = [st.checkbox(label="CheckAll",key={suffix},label_visibility="hidden")]
+    main_checkboxes = [st.checkbox(label=":blue-background[Select All / Deselect All]",key={suffix})]
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     # print(f"***********{suffix}*************")
     if uploaded_file is None: # if template.csv file loaded
         for i, (main_checkbox, checkbox_dict) in enumerate(zip(main_checkboxes, checkbox_dicts)):
