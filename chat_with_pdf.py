@@ -76,10 +76,10 @@ def show_major_expander_chat_pdf():
                 'Querylog/Clarification log Updation O': False, 
                 'Define Testing Entry/ExitCriteria O': False, 
                 'Freeze Requirement and Acceptance Criteria O': False}]
-        with st.expander(label="Requirement Analysis",expanded=True):
+        with st.expander(label="Risk Management",expanded=True):
             col1, col2 = st.columns([8,2])
             with col1:
-                updated_df = display_checkbox_get_updated_list_chat_pdf(list, "Requirement Analysis")
+                updated_df = display_checkbox_get_updated_list_chat_pdf(list, "Risk Management")
                 # updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
                 df_percent = calculate_percentage(updated_df)
             with col2:
@@ -92,10 +92,10 @@ def show_major_expander_chat_pdf_post_update():
                 'Querylog/Clarification log Updation U': True, 
                 'Define Testing Entry/ExitCriteria U': True, 
                 'Freeze Requirement and Acceptance Criteria U': True}]
-        with st.expander(label="Requirement Analysis",expanded=True):
+        with st.expander(label="Risk Management",expanded=True):
             col1, col2 = st.columns([8,2])
             with col1:
-                updated_df = display_checkbox_get_updated_list_chat_pdf(list, "Requirement Analysis UP")
+                updated_df = display_checkbox_get_updated_list_chat_pdf(list, "Risk Management UP")
                 # updated_unchecked_df = get_updated_uncheckbox_df(updated_df)
                 df_percent = calculate_percentage(updated_df)
             with col2:
